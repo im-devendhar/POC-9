@@ -4,13 +4,13 @@
   tasks:
     - name: Pull Docker image
       docker_image:
-        name: poc9-demo
+        name: poc9
         source: local
 
     - name: Run Docker container
       docker_container:
         name: poc9-container
-        image: poc9-demo
+        image: poc9
         state: started
         ports:
           - "8090:8090"
