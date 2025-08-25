@@ -43,8 +43,78 @@ Used for configuration management and deployment automation.
 sudo apt install ansible -y
 ```
 
+#  Fixing SSH Connection Issues in Ansible (EC2 + Jenkins)
 
-## 🔌 Jenkins Plugin Setup
+When running **Ansible playbooks** from Jenkins to deploy on an **AWS EC2 instance**, you may see this error:
+
+```
+UNREACHABLE! => Failed to connect to the host via ssh: Host key verification failed.
+```
+
+This usually happens because Ansible cannot authenticate with the EC2 instance over SSH.
+The fix is to ensure the **private key (`Dev.pem`)** is available on the EC2 instance where Jenkins/Ansible is running.
+
+##  Step 1: Copy `Dev.pem` into EC2 Instance
+
+Run this command from your **local machine** (where you downloaded the `.pem` file from AWS):
+
+```bash
+scp -i "C:/Users/DEVENDHAR B/Downloads/Dev.pem" \
+"C:/Users/DEVENDHAR B/Downloads/Dev.pem" \
+ubuntu@<EC2_PUBLIC_IP>:/home/ubuntu/
+```
+
+ What this does:
+
+* `-i "Dev.pem"` → Uses the key to authenticate with the EC2 instance.
+* Copies the file `Dev.pem` → Into `/home/ubuntu/` on the EC2 instance.
+
+---
+
+## Step 2: Set Correct Permissions
+
+Log into your EC2 instance and set restrictive permissions:
+
+```bash
+chmod 400 /home/ubuntu/Dev.pem
+```
+
+This prevents SSH from rejecting the key because of insecure permissions.
+
+---
+
+##  Step 3: Configure Ansible Inventory
+
+Tell Ansible which host to connect to and which key to use.
+Update your **inventory** file (e.g., `inventory`):
+
+```ini
+[web]
+3.95.6.197 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/Dev.pem
+```
+
+---
+
+##  Step 4: Run the Playbook
+
+Now you can run:
+
+```bash
+ansible-playbook -i inventory deploy.yml
+```
+
+Ansible should connect successfully to your EC2 instance using the copied `Dev.pem`.
+
+---
+
+##  Why This Works
+
+* EC2 instances **require SSH key-based authentication** (no password login).
+* Jenkins/Ansible running on the EC2 host needs access to the **private key**.
+* By copying `Dev.pem` and configuring it in the Ansible inventory, you allow secure, verified SSH access.
+
+
+##  Jenkins Plugin Setup
 
 To integrate Jenkins with GitHub, Docker, and Ansible, install the following plugins:
 
