@@ -1,9 +1,4 @@
-# Use a lightweight web server image
-FROM nginx:alpine
-
-# Copy the HTML file into the web server's root directory
-COPY index.html /usr/share/nginx/html/index.html
-
-# Expose port 80
-EXPOSE 80
-
+FROM tomcat:9.0
+RUN rm -rf /usr/local/tomcat/webapps/*
+COPY src/main/webapp/index.jsp /usr/local/tomcat/webapps/ROOT/index.jsp
+EXPOSE 8090
