@@ -1,7 +1,8 @@
 
 
 # Setting up a CI/CD pipeline on an Ubuntu EC2 t3.small instance using Git, Jenkins, Docker, and Ansible.
-![Uploading {7763229B-C6C2-4737-97A4-2FDBF80322AE}.png…]()
+<img width="920" height="350" alt="image" src="https://github.com/user-attachments/assets/0266267f-6be2-4933-83af-677036d12b47" />
+
 
 ##  Required Tools
 
