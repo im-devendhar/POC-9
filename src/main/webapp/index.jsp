@@ -12,7 +12,7 @@
       This is POC-9 which was done CI/CD pipeline involving GitHub, Jenkins, Docker, and Ansible.
     </h2>
     <h3 style="color:black; text-align:center;">
-      By Belli Devendhar..
+      By Devendhar..
     </h3>
   </body>
 </html>
