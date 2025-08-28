@@ -1,2 +1,2 @@
 [servers]
-54.234.216.59 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/Dev.pem
+44.203.97.167 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/Dev.pem
