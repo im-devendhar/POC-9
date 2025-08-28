@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1 style="color:green; text-align:center;">
-     CICD
+     Continous Integration Delivary Pipeline
     </h1>
 
     <h2 style="color:brown; text-align:center;">
